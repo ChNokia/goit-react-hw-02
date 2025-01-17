@@ -1,0 +1,29 @@
+.listBtn {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.optionBtn {
+  border-radius: 8px;
+  border: 1px solid gray;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #f9f9f9;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+
+.optionBtn:hover {
+  border-color: #646cff;
+}
+
+.optionBtn:focus,
+.optionBtn:focus-visible {
+  outline: 4px auto #646cff;
+}
