@@ -24,8 +24,11 @@ function App() {
     localStorage.setItem('votes', JSON.stringify(feedback));
   }, [feedback]);
 
-  let totalFeedback = calculateTotalFeedback(feedback);
-  let positiveFeedback = calculatePositiveFeedback(feedback);
+  const totalFeedback = calculateTotalFeedback(feedback);
+  const positiveFeedback = calculateRatioFeedbacks(
+    feedback.good,
+    totalFeedback
+  );
 
   const updateFeedback = feedbackType => {
     setFeedBack(prev => {
@@ -34,31 +37,13 @@ function App() {
         [feedbackType]: prev[feedbackType] + 1,
       };
 
-      totalFeedback += 1;
-      positiveFeedback = calculatePositiveFeedback(feedback);
       return newFeedback;
     });
   };
 
   const resetFeedback = () => {
-    totalFeedback = 0;
     setFeedBack(initialFeedback);
   };
-
-  function calculateTotalFeedback(feedback) {
-    let sum = 0;
-    const values = Object.values(feedback);
-
-    values.forEach(num => {
-      sum += num;
-    });
-
-    return sum;
-  }
-
-  function calculatePositiveFeedback(feedback) {
-    return Math.round((feedback.good / totalFeedback) * 100);
-  }
 
   return (
     <div className="container">
@@ -79,6 +64,21 @@ function App() {
       {totalFeedback <= 0 && <Notification />}
     </div>
   );
+}
+
+function calculateTotalFeedback(feedback) {
+  let sum = 0;
+  const values = Object.values(feedback);
+
+  values.forEach(num => {
+    sum += num;
+  });
+
+  return sum;
+}
+
+function calculateRatioFeedbacks(feedbackCount, totalCount) {
+  return Math.round((feedbackCount / totalCount) * 100);
 }
 
 export default App;
